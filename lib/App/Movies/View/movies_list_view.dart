@@ -41,49 +41,53 @@ class MoviesListView extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 20, bottom: 20),
                       itemCount: moviesVM.moviesData.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Row(
-                          children: [
-                            CacheImageView(
-                                height: AppConfig(context).width / 4,
-                                width: AppConfig(context).width / 5,
-                                circlularPadding: 0,
-                                boxfit: BoxFit.fill,
-                                image: moviesVM
-                                    .moviesData[index].images.first.url),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CustomText(
-                                    title: moviesVM.moviesData[index].title,
-                                    txtOverFlow: TextOverflow.ellipsis,
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  CustomText(
-                                    title: DateFormat("dd MMMM yyyy").format(
-                                        moviesVM.moviesData[index].releaseDate),
-                                  ),
-                                ],
+                        return GestureDetector(
+                          onTap: () => Get.toNamed(AppRoutes.moviesDetailView,
+                              arguments: moviesVM.moviesData[index]),
+                          child: Row(
+                            children: [
+                              CacheImageView(
+                                  height: AppConfig(context).width / 4,
+                                  width: AppConfig(context).width / 5,
+                                  circlularPadding: 0,
+                                  boxfit: BoxFit.fill,
+                                  image: moviesVM
+                                      .moviesData[index].images.first.url),
+                              const SizedBox(
+                                width: 10,
                               ),
-                            ),
-                            // const Spacer(),
-                            //outlined book button
-                            OutlinedButton(
-                              onPressed: () => Get.toNamed(
-                                  AppRoutes.moviesDetailView,
-                                  arguments: moviesVM.moviesData[index]),
-                              style: ElevatedButton.styleFrom(
-                                foregroundColor: AppColor.black,
-                                backgroundColor: AppColor.white,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CustomText(
+                                      title: moviesVM.moviesData[index].title,
+                                      txtOverFlow: TextOverflow.ellipsis,
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    CustomText(
+                                      title: DateFormat("dd MMMM yyyy").format(
+                                          moviesVM
+                                              .moviesData[index].releaseDate),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              child: const Text('Book'),
-                            ),
-                          ],
+                              // const Spacer(),
+                              //outlined book button
+                              OutlinedButton(
+                                onPressed: () =>
+                                    Get.toNamed(AppRoutes.bookTicketView),
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor: AppColor.black,
+                                  backgroundColor: AppColor.white,
+                                ),
+                                child: const Text('Book'),
+                              ),
+                            ],
+                          ),
                         );
                       },
                       separatorBuilder: (context, index) =>

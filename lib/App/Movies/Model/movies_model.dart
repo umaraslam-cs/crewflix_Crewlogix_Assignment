@@ -1,29 +1,46 @@
-// To parse this JSON data, do
+// / To parse this JSON data, do
 //
 //     final moviesModel = moviesModelFromJson(jsonString);
-
 import 'dart:convert';
 
-MoviesModel moviesModelFromJson(String str) =>
-    MoviesModel.fromJson(json.decode(str));
+import 'package:hive/hive.dart';
+part 'movies_model.g.dart';
 
+@HiveType(typeId: 1)
 class MoviesModel {
+  @HiveField(0)
   int id;
+  @HiveField(1)
   String title;
+  @HiveField(2)
   String language;
+  @HiveField(3)
   DateTime releaseDate;
+  @HiveField(4)
   List<Detail> details;
+  @HiveField(5)
   List<dynamic> tags;
+  @HiveField(6)
   List<Video> videos;
-  List<Image> images;
+  @HiveField(7)
+  List<MovieImage> images;
+  @HiveField(8)
   List<Collection> collections;
+  @HiveField(9)
   int watches;
+  @HiveField(10)
   int duration;
+  @HiveField(11)
   int activeScreens;
+  @HiveField(12)
   VoteScore voteScore;
+  @HiveField(13)
   FavMovie favMovie;
+  @HiveField(14)
   int stars;
+  @HiveField(15)
   List<dynamic> ratings;
+  @HiveField(16)
   List<Feeder> feeders;
 
   MoviesModel({
@@ -45,7 +62,6 @@ class MoviesModel {
     required this.ratings,
     required this.feeders,
   });
-
   factory MoviesModel.fromJson(Map<String, dynamic> json) => MoviesModel(
         id: json["id"] ?? 0,
         title: json["title"] ?? "",
@@ -63,7 +79,7 @@ class MoviesModel {
             ? List<Video>.from(json["videos"].map((x) => Video.fromJson(x)))
             : [],
         images: json["images"] != null
-            ? List<Image>.from(json["images"].map((x) => Image.fromJson(x)))
+            ? List<MovieImage>.from(json["images"].map((x) => MovieImage.fromJson(x)))
             : [],
         collections: json["collections"] != null
             ? List<Collection>.from(
@@ -86,24 +102,25 @@ class MoviesModel {
             ? List<Feeder>.from(json["feeders"].map((x) => Feeder.fromJson(x)))
             : [],
       );
-
-       static List<MoviesModel> jsonToList(List<dynamic> emote) =>
+  static List<MoviesModel> jsonToList(List<dynamic> emote) =>
       emote.map<MoviesModel>((item) => MoviesModel.fromJson(item)).toList();
 }
-
+@HiveType(typeId: 2)
 class Collection {
+  @HiveField(0)
   int id;
+  @HiveField(1)
   String name;
+  @HiveField(2)
   String slug;
+  @HiveField(3)
   List<int> movies;
-
   Collection({
     required this.id,
     required this.name,
     required this.slug,
     required this.movies,
   });
-
   factory Collection.fromJson(Map<String, dynamic> json) => Collection(
         id: json["id"] ?? 0,
         name: json["name"] ?? "",
@@ -113,16 +130,22 @@ class Collection {
             : [],
       );
 }
-
+@HiveType(typeId: 3)
 class Detail {
+  @HiveField(0)
   int id;
+  @HiveField(1)
   String language;
+  @HiveField(2)
   String title;
+  @HiveField(3)
   String director;
+  @HiveField(4)
   String tagline;
+  @HiveField(5)
   String cast;
+  @HiveField(6)
   String storyline;
-
   Detail({
     required this.id,
     required this.language,
@@ -132,7 +155,6 @@ class Detail {
     required this.cast,
     required this.storyline,
   });
-
   factory Detail.fromJson(Map<String, dynamic> json) => Detail(
         id: json["id"] ?? 0,
         language: json["language"] ?? "",
@@ -143,10 +165,14 @@ class Detail {
         storyline: json["storyline"] ?? "",
       );
 }
-
+@HiveType(typeId: 4)
 class FavMovie {
+  @HiveField(0)
   bool star;
+  @HiveField(1)
+
   bool follow;
+  @HiveField(2)
   bool watched;
 
   FavMovie({
@@ -154,45 +180,47 @@ class FavMovie {
     required this.follow,
     required this.watched,
   });
-
   factory FavMovie.fromJson(Map<String, dynamic> json) => FavMovie(
         star: json["star"] ?? false,
         follow: json["follow"] ?? false,
         watched: json["watched"] ?? false,
       );
 }
-
+@HiveType(typeId: 5)
 class Feeder {
+  @HiveField(0)
   String name;
+  @HiveField(1)
   String url;
-
   Feeder({
     required this.name,
     required this.url,
   });
-
   factory Feeder.fromJson(Map<String, dynamic> json) => Feeder(
         name: json["name"] ?? "",
         url: json["url"] ?? "",
       );
 }
-
-class Image {
+@HiveType(typeId: 6)
+class MovieImage {
+  @HiveField(0)
   int id;
+  @HiveField(1)
   int order;
+  @HiveField(2)
   String url;
+  @HiveField(3)
   String type;
+  @HiveField(4)
   String thumbnail;
-
-  Image({
+  MovieImage({
     required this.id,
     required this.order,
     required this.url,
     required this.type,
     required this.thumbnail,
   });
-
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
+  factory MovieImage.fromJson(Map<String, dynamic> json) => MovieImage(
         id: json["id"] ?? 0,
         order: json["order"] ?? 0,
         url: json["url"] ?? "",
@@ -200,20 +228,22 @@ class Image {
         thumbnail: json["thumbnail"] ?? "",
       );
 }
-
+@HiveType(typeId: 7)
 class Video {
+  @HiveField(0)
   String url;
+  @HiveField(1)
   String source;
+  @HiveField(2)
   String kind;
+  @HiveField(3)
   String language;
-
   Video({
     required this.url,
     required this.source,
     required this.kind,
     required this.language,
   });
-
   factory Video.fromJson(Map<String, dynamic> json) => Video(
         url: json["url"] ?? "",
         source: json["source"] ?? "",
@@ -221,18 +251,19 @@ class Video {
         language: json["language"] ?? "",
       );
 }
-
+@HiveType(typeId: 8)
 class VoteScore {
+  @HiveField(0)
   int avg;
+  @HiveField(1)
   int score;
+  @HiveField(2)
   int total;
-
   VoteScore({
     required this.avg,
     required this.score,
     required this.total,
   });
-
   factory VoteScore.fromJson(Map<String, dynamic> json) => VoteScore(
         avg: json["avg"] ?? 0,
         score: json["score"] ?? 0,

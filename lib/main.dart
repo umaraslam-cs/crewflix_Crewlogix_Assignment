@@ -1,11 +1,30 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
+import 'App/Movies/Model/movies_model.dart';
 import 'RoutesAndBindings/app_pages.dart';
 import 'RoutesAndBindings/app_routes.dart';
 import 'Utils/Theme/colors.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  Directory directory = await getApplicationDocumentsDirectory();
+  Hive
+    ..init(directory.path)
+    ..registerAdapter(MoviesModelAdapter())
+    ..registerAdapter(DetailAdapter())
+    ..registerAdapter(VideoAdapter())
+    ..registerAdapter(MovieImageAdapter())
+    ..registerAdapter(CollectionAdapter())
+    ..registerAdapter(VoteScoreAdapter())
+    ..registerAdapter(FavMovieAdapter())
+    ..registerAdapter(FeederAdapter());
+
   runApp(const MyApp());
 }
 

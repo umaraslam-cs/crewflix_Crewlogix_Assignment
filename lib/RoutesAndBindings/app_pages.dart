@@ -1,3 +1,4 @@
+import 'package:crewflix/App/Movies/View/book_ticket_view.dart';
 import 'package:crewflix/App/Movies/View/movies_detail_view.dart';
 import 'package:crewflix/App/Movies/View/movies_list_view.dart';
 import 'package:crewflix/App/Movies/ViewModel/movies_view_model.dart';
@@ -44,7 +45,13 @@ class AppPages {
     GetPage(
       name: AppRoutes.videoPlayerView,
       transition: Transition.rightToLeft,
-      page: () => VideoPlayerView(),
+      page: () => const VideoPlayerView(),
+      binding: BindingsBuilder(() {}),
+    ),
+    GetPage(
+      name: AppRoutes.bookTicketView,
+      transition: Transition.rightToLeft,
+      page: () => const BookTicketView(),
       binding: BindingsBuilder(() {}),
     ),
   ];
