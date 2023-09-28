@@ -17,6 +17,7 @@ class MoviesListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text(
           'CrewFlix',
           style: TextStyle(
@@ -37,7 +38,7 @@ class MoviesListView extends StatelessWidget {
                       ),
                     )
                   : ListView.separated(
-                      padding: const EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.only(top: 20, bottom: 20),
                       itemCount: moviesVM.moviesData.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Row(
@@ -52,21 +53,25 @@ class MoviesListView extends StatelessWidget {
                             const SizedBox(
                               width: 10,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CustomText(
-                                    title: moviesVM.moviesData[index].title),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                CustomText(
-                                  title: DateFormat("dd MMMM yyyy").format(
-                                      moviesVM.moviesData[index].releaseDate),
-                                ),
-                              ],
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CustomText(
+                                    title: moviesVM.moviesData[index].title,
+                                    txtOverFlow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  CustomText(
+                                    title: DateFormat("dd MMMM yyyy").format(
+                                        moviesVM.moviesData[index].releaseDate),
+                                  ),
+                                ],
+                              ),
                             ),
-                            const Spacer(),
+                            // const Spacer(),
                             //outlined book button
                             OutlinedButton(
                               onPressed: () => Get.toNamed(

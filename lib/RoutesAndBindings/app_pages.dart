@@ -1,8 +1,8 @@
+import 'package:crewflix/App/Movies/View/movies_detail_view.dart';
 import 'package:crewflix/App/Movies/View/movies_list_view.dart';
 import 'package:crewflix/App/Movies/ViewModel/movies_view_model.dart';
 import 'package:get/get.dart';
-
-import '../App/Movies/View/movies_detail_screen.dart';
+import '../App/Movies/View/video_player_view.dart';
 import '../App/Splash/View/splash_view.dart';
 import '../App/Splash/ViewModel/splash_view_model.dart';
 import 'app_routes.dart';
@@ -33,6 +33,18 @@ class AppPages {
       name: AppRoutes.moviesDetailView,
       transition: Transition.rightToLeft,
       page: () => MoviesDetailView(),
+      binding: BindingsBuilder(() {}),
+    ),
+    GetPage(
+      name: AppRoutes.moviesDetailView,
+      transition: Transition.rightToLeft,
+      page: () => MoviesDetailView(),
+      binding: BindingsBuilder(() {}),
+    ),
+    GetPage(
+      name: AppRoutes.videoPlayerView,
+      transition: Transition.rightToLeft,
+      page: () => VideoPlayerView(),
       binding: BindingsBuilder(() {}),
     ),
   ];
